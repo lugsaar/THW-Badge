@@ -66,7 +66,7 @@ typedef void (*FuncPntrBtn) (uint8_t);
 
 extern volatile uint8_t AppNumber;
 extern volatile uint8_t Stop;
-extern volatile uint8_t LedCycle;
+extern volatile uint16_t LedCycle;
 extern volatile uint8_t Buttons;
 
 void initPorts(void);
@@ -74,7 +74,7 @@ void initPowersave(void);
 void initButtons(void);
 void initCycleTimer(uint8_t _Speed);
 void initAppTimer(uint16_t _Speed);
-void activateLeds(uint8_t _Leds);
+void activateLeds(uint16_t _Leds);
 void debounceButtons(volatile uint8_t *_port, uint8_t _mask);
 
 #endif

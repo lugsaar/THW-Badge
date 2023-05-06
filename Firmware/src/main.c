@@ -2,7 +2,7 @@
 
 volatile uint8_t AppNumber;
 volatile uint8_t Stop;
-volatile uint8_t LedCycle;
+volatile uint16_t LedCycle;
 volatile uint8_t Buttons;
 
 FuncPntr Application[] = {
@@ -47,8 +47,8 @@ int main(void)
 
   // Start Launcher in sleepmode
   Stop = 0;
-  // Application[0]();
-  App_Wheel();
+  Application[0]();
+  // App_Wheel();
 
   return 0;
 }
@@ -80,7 +80,7 @@ void initButtons(void)
 {
   // Set Pin Change Interrupt for button input pins
   PCICR |= (1 << PCIE0);
-  PCMSK0 |= (1 << PCINT1) | (1 << PCINT2);
+  PCMSK0 |= (1 << PCINT0) | (1 << PCINT1) | (1 << PCINT2);
 }
 
 void initCycleTimer(uint8_t _Speed)
@@ -88,7 +88,7 @@ void initCycleTimer(uint8_t _Speed)
   //_Speed 0 means all LEDs permanent
   if (_Speed == 0)
   {
-    LedCycle = 0xff;
+    LedCycle = 0x3ff;
     return;
   }
   TCCR0A = 0;// set entire TCCR0A register to 0
@@ -126,10 +126,11 @@ void initAppTimer(uint16_t _Speed)
   return;
 }
 
-void activateLeds(uint8_t _Leds)
+void activateLeds(uint16_t _Leds)
 {
-  PORTC = (0x1F & _Leds);
-  // PORTC = ~(LedCycle & _Leds);
+  // PORTC = (0x1F & _Leds);
+  PORTC = 0x1Fu &  (LedCycle & _Leds);
+  PORTD = 0x1Fu & ((LedCycle & _Leds) >> 5);
   return;
 }
 
@@ -186,8 +187,8 @@ ISR(TIMER0_COMPA_vect)
 ISR(TIMER1_COMPA_vect)
 {
   cli();
-  // AppTimerInterrupt[AppNumber]();
-  TimerInt_Wheel();
+  AppTimerInterrupt[AppNumber]();
+  // TimerInt_Wheel();
   sei();
   return;
 }
@@ -196,21 +197,21 @@ ISR(PCINT0_vect)
 {
   // Wake up
   cli();
-  debounceButtons(&PINB, (1 << PB1) | (1 << PB2));
-  if (!(PINB & (1 << PB1)))
+  debounceButtons(&PINB, (1 << PB0) | (1 << PB1) | (1 << PB2));
+  if (!(PINB & (1 << PB0)))
   {
     Buttons |= (1 << BUTTON1);
   }
-  if (!(PINB & (1 << PB2)))
+  if (!(PINB & (1 << PB1)))
   {
     Buttons |= (1 << BUTTON2);
   }
-  // if (!(PINB & (1 << PB0)))
-  // {
-  //   Buttons |= (1 << BUTTON3);
-  // }
-  // AppButtonInterrupt[AppNumber](Buttons);
-  ButtonInt_Wheel(Buttons);
+  if (!(PINB & (1 << PB2)))
+  {
+    Buttons |= (1 << BUTTON3);
+  }
+  AppButtonInterrupt[AppNumber](Buttons);
+  // ButtonInt_Wheel(Buttons);
   Buttons = 0;
 
   // debounceButtons(&PINB, (1 << PB2) | (1 << PB1));

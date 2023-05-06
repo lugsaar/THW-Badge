@@ -1,11 +1,11 @@
 #include "launcher.h"
 
 uint8_t AppSelect;
-uint8_t Leds;
-uint8_t Blink;
+uint16_t Leds;
+uint16_t Blink;
 
 void App_Launcher(void) {
-   initCycleTimer(32);
+   initCycleTimer(16);
    initAppTimer(3000);
    while (1) {
       if (AppNumber == 0) {
@@ -55,7 +55,7 @@ void ButtonInt_Launcher(uint8_t _Buttons) {
 
 void LauncherLeds(void) {
    if (AppSelect > 0) {
-      Leds = (1 << (AppSelect - 1));
+      Leds = ((1 << 4) >> (AppSelect - 1));  // PC4 auf "1 Uhr"
    }
    else {
       Leds = 0;

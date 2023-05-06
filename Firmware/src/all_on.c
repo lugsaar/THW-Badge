@@ -1,9 +1,9 @@
 #include "all_on.h"
 
 void App_AllOn(void) {
-   initCycleTimer(32);
+   initCycleTimer(16);
    while (Stop == 0) {
-      activateLeds(0xff);
+      activateLeds(0x3ff);
    }
    return;
 }

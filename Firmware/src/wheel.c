@@ -5,8 +5,8 @@ Direction_t Direction;
 
 void App_Wheel(void) {
    WheelSpeed = 800;
-   Direction.Forward = 1;
-   initCycleTimer(32);
+   Direction.Forward = 0;
+   initCycleTimer(16);
    initAppTimer(WheelSpeed);
 
    while (Stop == 0) {
@@ -18,24 +18,24 @@ void App_Wheel(void) {
 void TimerInt_Wheel(void) {
    if (Direction.Forward == 1) {
       Leds <<= 1;
-      if (Leds == 0) {
+      if (Leds == 1024) {
          Leds = 1;
       }
    }
    if (Direction.Forward == 0) {
       Leds >>= 1;
       if (Leds == 0) {
-         Leds = 128;
+         Leds = 1024;
       }
    }
    return;
 }
 
 void ButtonInt_Wheel(uint8_t _Buttons) {
-   // if (BUTTON3_PRESSED) {
-   //    Stop = 1;
-   //    return;
-   // }
+   if (BUTTON3_PRESSED) {
+      Stop = 1;
+      return;
+   }
    if (BUTTON1_PRESSED && (WheelSpeed < 10000) && (Direction.Forward == 1)) {
       WheelSpeed += 400;
    }

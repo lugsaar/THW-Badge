@@ -6,8 +6,8 @@
 extern FuncPntr Application[];
 
 extern uint8_t AppSelect;
-extern uint8_t Leds;
-extern uint8_t Blink;
+extern uint16_t Leds;
+extern uint16_t Blink;
 
 void App_Launcher(void);
 void TimerInt_Launcher(void);
