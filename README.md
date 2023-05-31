@@ -1,11 +1,11 @@
-# THW Badge
+# THW-Badge
 
 [![GitHub release](https://img.shields.io/github/release/dokuhn/THW_badge.svg)](https://GitHub.com/dokuhn/THW_badge/releases/) [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 ## Images 
 
-![front](/KiCad/Images/THW_badge_top.jpg)
-
+![top](/KiCad/Images/THW_badge_top.jpg)
+![bottom](/KiCad/Images/THW_badge_bottom.jpg)
 ## License 
 
 This work is licensed under a
