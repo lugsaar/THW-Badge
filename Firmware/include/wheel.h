@@ -3,9 +3,7 @@
 
 #include "thw-badge.h"
 
-typedef struct Direction_t {
-   volatile uint8_t Forward : 1;
-} Direction_t;
+
 
 extern uint16_t WheelSpeed;
 extern Direction_t Direction;

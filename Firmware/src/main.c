@@ -151,26 +151,6 @@ void debounceButtons(volatile uint8_t *_port, uint8_t _mask)
   return;
 }
 
-// ISR(TIMER1_COMPA_vect) {
-//   Interrupt every ms
-
-//   static unsigned int sys_tick_ms = 0;
-
-//   cli();
-//   //write your timer code here
-
-//   if( (sys_tick_ms & sleep_time) == 0u ){
-
-//     PORTB ^= (1 << PB5);
-
-//   }
-
-//   sys_tick_ms += 1;
-
-//   sei();
-//   return;
-
-// }
 
 ISR(TIMER0_COMPA_vect)
 {
@@ -211,25 +191,7 @@ ISR(PCINT0_vect)
     Buttons |= (1 << BUTTON3);
   }
   AppButtonInterrupt[AppNumber](Buttons);
-  // ButtonInt_Wheel(Buttons);
   Buttons = 0;
-
-  // debounceButtons(&PINB, (1 << PB2) | (1 << PB1));
-  // if (!(PINB & (1 << PB1)))
-  // {
-  //   if (sleep_time >= 0x3u)
-  //   {
-  //     sleep_time = (sleep_time >> 1);
-  //   }
-  // }
-  // if (!(PINB & (1 << PB2)))
-  // {
-  //   if (sleep_time <= 0x3FFFu)
-  //   {
-  //     sleep_time = (sleep_time << 1) | 0x1u;
-  //   }
-  // }
-
   sei();
   return;
 }

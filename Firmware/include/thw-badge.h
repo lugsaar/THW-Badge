@@ -41,28 +41,36 @@ Application number 0 is reserved for the Launcher application.
 typedef void (*FuncPntr) (void);
 typedef void (*FuncPntrBtn) (uint8_t);
 
+typedef struct Direction_t {
+   volatile uint8_t Forward : 1;
+} Direction_t;
+
 //Application inclusions
 #include "launcher.h"
 #include "all_on.h"
 #include "wheel.h"
+#include "snake_wheel.h"
 
 //Application startfunction
 #define APPLICATIONS\
    App_Launcher,\
    App_AllOn,\
-   App_Wheel
+   App_Wheel, \
+   App_SnakeWheel
 
 //Application timer ISR
 #define APPTIMERS\
    TimerInt_Launcher,\
    TimerInt_AllOn,\
-   TimerInt_Wheel
+   TimerInt_Wheel, \
+   TimerInt_SnakeWheel
    
 //Application button ISR
 #define APPBUTTONS\
    ButtonInt_Launcher,\
    ButtonInt_AllOn,\
-   ButtonInt_Wheel
+   ButtonInt_Wheel, \
+   ButtonInt_SnakeWheel
 
 extern volatile uint8_t AppNumber;
 extern volatile uint8_t Stop;

@@ -37,7 +37,7 @@ void ButtonInt_Launcher(uint8_t _Buttons) {
    if (BUTTON2_PRESSED) {
       AppSelect++;
    }
-   if (AppSelect > 2) {
+   if (AppSelect > 3) {
       AppSelect = 0;
       activateLeds(0);
       AppNumber = 0;
