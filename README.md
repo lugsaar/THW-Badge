@@ -4,8 +4,8 @@
 
 ## Images 
 
-![top](/KiCad/Images/THW_badge_top.jpg)
-![bottom](/KiCad/Images/THW_badge_bottom.jpg)
+![top](/KiCad/images/THW_badge_top.jpg)
+![bottom](/KiCad/images/THW_badge_bottom.jpg)
 ## License 
 
 This work is licensed under a
